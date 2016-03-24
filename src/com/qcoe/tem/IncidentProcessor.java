@@ -181,11 +181,14 @@ public class IncidentProcessor {
         int cstBegin = Configuration.incProperties.getCstHourBegin();
         int cstEnd = Configuration.incProperties.getCstHourEnd();
         boolean supportedHours=false;
-       
+        boolean aglieHour=false;
+        
         if(day.equalsIgnoreCase(DAYS_OF_WEEK[0]) || day.equalsIgnoreCase(DAYS_OF_WEEK[6])){ //weekEnd
             supportedHours=Configuration.incProperties.getWeekEndSupportHrs().contains(hour+"") ;
+            aglieHour=false;
         }else{
             supportedHours=Configuration.incProperties.getWeekDaySupportHrs().contains(hour+"") ;
+            aglieHour = supportedHours;
         }
         int noOfMins = closeDate ==null ? -1 :
                 (int) TimeUnit.MILLISECONDS.toMinutes(
@@ -212,7 +215,7 @@ public class IncidentProcessor {
         inc.setTimeLost(timeLost);
         inc.setTeam(team);
         inc.setSupportedHours(supportedHours);
-    
+        inc.setAgileHours(aglieHour);
     
     
         
