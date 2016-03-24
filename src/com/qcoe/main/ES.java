@@ -92,6 +92,7 @@ public class ES {
         ES es = new ES();
         
         CommandLineProperties cLine = new CommandLineProperties();
+        System.out.println("ES Version 1.0.1");
         cLine.setAppName(args[0]);
         // cLine.setAppName("TEM");
               
