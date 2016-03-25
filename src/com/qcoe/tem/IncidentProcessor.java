@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,10 +58,35 @@ public class IncidentProcessor {
        
     }
     
-        
+    
+    public void getAllDocuments() throws UnknownHostException{
+      ElasticSearchProperties esProperties = Configuration.esProperties;
+      ElasticSearchManager esManager = new ElasticSearchManager(esProperties);
+     esManager.getDocumentIDs(INDEXNAME, INCIDENT_DOCUMENT_TYPE);
+      
+      /*ArrayList<String> incidents = new ArrayList<>();
+      incidents.add("INC2595066");incidents.add("INC2594698");
+      Map<String,Map> hs = esManager.getDocuments(INDEXNAME, INCIDENT_DOCUMENT_TYPE,incidents);
+      int i=0;
+      
+      for (String key : hs.keySet() ){
+            System.out.println((i++) +" "+key +" "+hs.get(key));
+            //System.out.println (hs.get(key));
+      
+      }
+      */
+      
+    }
+    
+    
     public void doWork() throws IOException{
     
     
+        getAllDocuments();
+        
+        if(true)
+            return;
+        
         for(File fileName : listOfFiles){
             
             ArrayList<String> data = this.getFile(fileName);
@@ -69,7 +94,7 @@ public class IncidentProcessor {
             publishDocument2ES(incidentCollection);
             writeStatus();
         }//for
-    
+   
     }
     
     

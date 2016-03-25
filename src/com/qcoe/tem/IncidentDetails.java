@@ -30,7 +30,7 @@ public class IncidentDetails {
     private String classification;
     private String broaderClassification;
     private double timeLost;//
-    private boolean agileHours;
+    private boolean agileHours;//
     private String team;//
     private String week;//
     private String day;//

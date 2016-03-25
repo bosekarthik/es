@@ -93,8 +93,8 @@ public class ES {
         
         CommandLineProperties cLine = new CommandLineProperties();
         System.out.println("ES Version 1.0.1");
-        cLine.setAppName(args[0]);
-        // cLine.setAppName("TEM");
+        //cLine.setAppName(args[0]);
+         cLine.setAppName("TEM");
               
         try {
         
@@ -110,8 +110,8 @@ public class ES {
                 es.init();
                 
             }else if(app.equalsIgnoreCase(Constants.APPNAME_TEM)){
-                cLine.settDirectory(args[1]);
-               //  cLine.settDirectory("D:/Perf");
+               // cLine.settDirectory(args[1]);
+                 cLine.settDirectory("D:/Perf");
             }
             
             es.doWork(cLine);

@@ -15,10 +15,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 
 /**
  *
@@ -69,15 +74,57 @@ public class ElasticSearchManager {
             
     }
 
-      
-    public Map<String,Object> getAPI(String indexName,String docType,String docID){
     
-          
-        GetResponse response = client.prepareGet(indexName, docType, docID).setOperationThreaded(false).get();
+    public ArrayList<String> getDocumentIDs(String indexName,String docType) throws UnknownHostException{
+      try{
+            
+            openClient();
+            
+        SearchRequestBuilder request = client.prepareSearch(indexName);
+        request.setTypes(docType);
+        request.setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
+        request.setQuery(QueryBuilders.termQuery("number", "INC2595066"));                 // Query
+      //  .setPostFilter(QueryBuilders.rangeQuery("age").from(12).to(18))     // Filter
+      //  .setFrom(0).setSize(60).setExplain(true)
+       SearchResponse response = request.execute().actionGet();
+       
+        System.out.println(request);
+        System.out.println("------------------------------------");
+        System.out.println(response);
+        
+        for (SearchHit sr : response.getHits().getHits()){
+        
+            System.out.println(sr);
+        }
+        }finally{
+         closeClient();        
+        }
+        return null;
+    }
+    
+      
+    public Map<String,Map> getDocuments(String indexName,String docType,ArrayList<String> docIDs) throws UnknownHostException{
+    
+        HashMap<String,Map> documents = new HashMap<>();
+        
+        try{
+            
+            openClient();
 
-        Map<String,Object> map =response.getSource();
+            for(String docID : docIDs){
+            
+                GetResponse response = client.prepareGet(indexName, docType, docID).setOperationThreaded(false).get();
+                Map<String,Object> document =response.getSource();
+                documents.put(docID, document);
+                
+            }
+        
+        
+        }finally{
+         closeClient();        
+        }
 
-        return map;
+        return documents;
            
         
     }

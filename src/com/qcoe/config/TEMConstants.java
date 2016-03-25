@@ -58,7 +58,7 @@ public class TEMConstants {
     public static String INCIDENT_FILE_IDENTIFIER = "\"number\",\"caller_id\",\"short_description\"";
     public static String TIMEFORMAT = "yyyy-MM-dd HH:mm:ss";
     public static String[] DAYS_OF_WEEK = {"07-SUNDAY","01-MONDAY","02-TUESDAY","03-WEDNESDAY","04-THURSDAY","05-FRIDAY","06-SATURDAY"}; 
-    public static String[] MONTHS = {"JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"}; 
+    public static String[] MONTHS = {"01-JANUARY","02-FEBRUARY","03-MARCH","04-APRIL","05-MAY","06-JUNE","07-JULY","08-AUGUST","09-SEPTEMBER","10-OCTOBER","11-NOVEMBER","12-DECEMBER"}; 
 
    
    
